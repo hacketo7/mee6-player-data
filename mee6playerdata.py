@@ -10,8 +10,8 @@ async def fetch_player_data(server_id, player_id):
         page += 1 
         try:
             resp = requests.get(url=url, params={"page": page}) # returns a json of the page of 100 users
-            resp.raise_for_status() # breaks code if its a 400 or 500 error
-            players = resp.json().get("players", []) # convert the json into a python dict in the form. if its not a json return a empty dict
+            resp.raise_for_status() # breaks code if it raises a 400 or 500 error
+            players = resp.json().get("players", []) # convert the json into a python dict in the form. if its not found return a empty dict
             # explanation of the dict
             """{'avatar': '', 'discriminator': '', 'guild_id': '', 'id': '', 'message_count': , 'monetize_xp_boost': , 'username': '', 'xp': , 'is_monetize_subscriber': , 'detailed_xp': , 'level': }
                 avatar: a hash of the player id's profile picture.
@@ -35,7 +35,7 @@ async def fetch_player_data(server_id, player_id):
         except requests.exceptions.JSONDecodeError as err:
             return "invalid json"
 
-        for p in players: # checking for the player
+        for p in players: # checking for the player in the page
             if p["id"] == player_id:
                 return p
 
