@@ -42,4 +42,4 @@ async def fetch_player_data(server_id, player_id):
         if not players: # if the player id wasn't found in any of the pages
             return None
 
-        await asyncio.sleep(0.5) # delay 500ms
+        await asyncio.sleep(0.5) # delay 500ms or you will be temporarily ip blocked
